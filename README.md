@@ -41,7 +41,7 @@ The project provides an optimized **Google Colab training pipeline** and a **Fla
 
 ```
 CycleGAN-Face-Sketch-Synthesis/
-├── q1_A-02_Gen-AI.ipynb # End-to-end training & deployment notebook
+├── Gen-AI.ipynb # End-to-end training & deployment notebook
 ├── templates/
 │ └── index.html # Flask frontend UI
 ├── static/
@@ -104,7 +104,7 @@ pip install flask pyngrok pillow torch torchvision
 
 ### 2️⃣ Training
 
-Open q1_A-02_Gen-AI.ipynb in Google Colab
+Open Gen-AI.ipynb in Google Colab
 Mount Google Drive for persistent checkpoint storage
 Configure training parameters such as MAX_IMAGES and EPOCHS
 Run all cells to train the model
