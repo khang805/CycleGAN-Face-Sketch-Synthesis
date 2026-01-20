@@ -118,10 +118,14 @@ Access the generated Ngrok public URL
 Upload a photo or sketch
 The system automatically detects the input domain and generates the result
 
-📊 Performance Metrics
-Training Speed: ~10.84 iterations per second
-Average Generator Loss: ~3.54 by Epoch 10
-Image Resolution: 128 × 128 × 3
+## 📊 Performance Metrics
 
-📜 License
+| Metric                     | Value                     |
+|---------------------------|---------------------------|
+| Training Speed             | ~10.84 iterations/second |
+| Average Generator Loss     | ~3.54 (by Epoch 10)      |
+| Image Resolution           | 128 × 128 × 3            |
+
+
+##📜 License
 This project is intended for academic, research, and educational use.
