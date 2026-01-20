@@ -39,6 +39,7 @@ The project provides an optimized **Google Colab training pipeline** and a **Fla
 
 ## 📂 Project Structure
 
+```
 CycleGAN-Face-Sketch-Synthesis/
 ├── q1_A-02_Gen-AI.ipynb # End-to-end training & deployment notebook
 ├── templates/
@@ -52,9 +53,8 @@ CycleGAN-Face-Sketch-Synthesis/
 ├── epoch_n.pth # Checkpoint after each epoch
 ├── best_model.pth # Best validation loss model
 └── final_model.pth # Final inference model
+```
 
-yaml
-Copy code
 
 ---
 
@@ -98,37 +98,30 @@ Copy code
 ## 💻 Usage
 
 ### 1️⃣ Environment Setup
-Install required dependencies:
 
+Install required dependencies:
 ```bash
 pip install flask pyngrok pillow torch torchvision
-2️⃣ Training
+
+### 2️⃣ Training
+
 Open q1_A-02_Gen-AI.ipynb in Google Colab
-
 Mount Google Drive for persistent checkpoint storage
-
 Configure training parameters such as MAX_IMAGES and EPOCHS
-
 Run all cells to train the model
-
 Final weights are saved as final_model.pth
 
-3️⃣ Web Interface (Inference)
+### 3️⃣ Web Interface (Inference)
+
 Provide your NGROK_AUTH_TOKEN in the deployment cell
-
 Run the Flask application
-
 Access the generated Ngrok public URL
-
 Upload a photo or sketch
-
 The system automatically detects the input domain and generates the result
 
 📊 Performance Metrics
 Training Speed: ~10.84 iterations per second
-
 Average Generator Loss: ~3.54 by Epoch 10
-
 Image Resolution: 128 × 128 × 3
 
 📜 License
