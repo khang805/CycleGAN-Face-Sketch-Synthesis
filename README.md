@@ -127,5 +127,5 @@ The system automatically detects the input domain and generates the result
 | Image Resolution           | 128 × 128 × 3            |
 
 
-##📜 License
+## 📜 License
 This project is intended for academic, research, and educational use.
