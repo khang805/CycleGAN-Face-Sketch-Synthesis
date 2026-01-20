@@ -1,1 +1,135 @@
-CycleGAN-Face-Sketch-SynthesisProject OverviewThis project implements a Cycle-Consistent Adversarial Network (CycleGAN) designed for high-fidelity, bidirectional image-to-image translation between human portraits and artistic sketches. Using the Person Face Sketches dataset, the system facilitates the conversion of real-world photographs into sketches and reconstructs realistic faces from hand-drawn inputs. The implementation emphasizes computational efficiency through an optimized model architecture and an end-to-end deployment pipeline using Flask and Ngrok.🚀 FeaturesBidirectional Translation: Seamlessly converts Photo → Sketch and Sketch → Photo using a unified model framework.Optimized Architecture: Features a ResNet-based Generator with reduced residual blocks (3 blocks) and a PatchGAN Discriminator for faster training on consumer-grade GPUs.Automated Domain Detection: The backend automatically detects whether the input is a sketch or a photo based on pixel intensity and applies the appropriate transformation.Real-time Web Interface: A user-friendly Flask UI integrated with Ngrok for public access and instant inference testing.Memory-Efficient Training: Optimized for $128 \times 128$ resolution to manage memory constraints while preserving key facial features.🛠️ Tech StackFramework: PyTorchArchitecture: CycleGAN (Generators + Discriminators)Deployment: Flask, PyNgrokEnvironment: Google Colab (T4 GPU)Data Processing: Torchvision, PIL🏗️ Model ArchitectureGeneratorBackbone: Encoder-Decoder structure with 3 ResNet blocks for feature preservation.Normalization: Uses InstanceNorm2d for style-invariant normalization.Activation: Tanh activation at the output layer to scale pixel values correctly.DiscriminatorArchitecture: PatchGAN architecture designed to classify $70 \times 70$ image patches.Layers: Utilizes LeakyReLU and Conv2d layers to distinguish local textures (strokes vs. skin).Loss FunctionsAdversarial Loss: Least Squares GAN (MSELoss) for improved training stability.Cycle Consistency Loss: L1 Loss to ensure $G_{B2A}(G_{A2B}(x)) \approx x$.Identity Loss: L1 Loss weighted at $\lambda = 5$ to preserve color and compositional integrity.📊 Dataset & TrainingThe model is trained on the Person Face Sketches dataset.Training Samples: Optimized for speed using 500 images per domain.Image Pre-processing: Resized to $128 \times 128$ and normalized to the range $[-1, 1]$.Performance: Achieved training throughput of approximately 10.84 iterations per second.💻 Usage1. TrainingRun the q1_A-02_Gen-AI.ipynb in Google Colab. Ensure your Google Drive is mounted to save checkpoints automatically to /content/drive/MyDrive/Checkpoints_CycleGAN_Fast.2. Inference (Web UI)Navigate to the Flask app section in the notebook.Input your NGROK_AUTH_TOKEN to initiate the tunnel.Launch the app to generate a Public URL.Upload any image; the system will auto-detect the domain and display the converted result in real-time.📂 Repository Structureq1_A-02_Gen-AI.ipynb: Full source code for training and deployment.templates/: HTML templates for the Flask web interface.static/: Directories for storing uploads and results.
+# 🎨 CycleGAN Face–Sketch Synthesis
+
+## 📌 Project Overview
+This repository contains a professional implementation of a **Cycle-Consistent Adversarial Network (CycleGAN)** for high-fidelity, bidirectional image-to-image translation. The model is trained on the **Person Face Sketches dataset** to perform two core tasks:
+
+- Converting real human face photographs into artistic sketches  
+- Reconstructing realistic facial images from hand-drawn sketches  
+
+The project provides an optimized **Google Colab training pipeline** and a **Flask-based web deployment** that enables real-time inference through a browser-based interface.
+
+---
+
+## 🚀 Features
+
+### 🔄 Bidirectional Style Transfer
+- Dual generators for **Photo → Sketch** and **Sketch → Photo**
+- Cycle consistency preserves facial identity and structure
+
+### ⚡ Performance Optimization
+- Lightweight ResNet-based generator with **3 residual blocks**
+- Image resolution fixed at **128 × 128**
+- Optimized for fast training and inference on **Tesla T4 GPU**
+
+### 🧠 Smart Inference Logic
+- Automatically detects input domain (photo or sketch)
+- Uses pixel intensity analysis to route input to the appropriate generator
+
+### 🌐 Integrated Deployment
+- Flask-based web interface for image uploads
+- Public access enabled via **Ngrok tunneling**
+- Real-time visualization of generated results
+
+### 💾 Robust Checkpointing
+- Automatic checkpoint saving to **Google Drive**
+- Prevents training loss due to Colab session timeouts
+- Stores epoch-wise, best, and final model weights
+
+---
+
+## 📂 Project Structure
+
+CycleGAN-Face-Sketch-Synthesis/
+├── q1_A-02_Gen-AI.ipynb # End-to-end training & deployment notebook
+├── templates/
+│ └── index.html # Flask frontend UI
+├── static/
+│ ├── uploads/ # Uploaded input images
+│ └── results/ # Generated output images
+├── model/ # Exported model files
+└── drive/MyDrive/
+└── Checkpoints_CycleGAN_Fast/
+├── epoch_n.pth # Checkpoint after each epoch
+├── best_model.pth # Best validation loss model
+└── final_model.pth # Final inference model
+
+yaml
+Copy code
+
+---
+
+## 🏗️ Technical Architecture
+
+### Generator
+- Encoder–Decoder **ResNet architecture**
+- Instance Normalization for style consistency
+- Tanh activation for output normalization
+
+### Discriminator
+- **PatchGAN discriminator**
+- Operates on **70 × 70 image patches**
+- Focuses on high-frequency facial and sketch details
+
+---
+
+## 📉 Loss Functions
+
+- **Adversarial Loss:**  
+  Mean Squared Error (LSGAN) for smoother gradients and training stability
+
+- **Cycle Consistency Loss:**  
+  L1 loss ensuring reversible image translation
+
+- **Identity Loss:**  
+  Preserves color and composition when input matches target domain
+
+---
+
+## 🛠️ Tech Stack
+
+- **Deep Learning:** PyTorch, Torchvision
+- **Backend:** Flask
+- **Networking:** PyNgrok
+- **Hardware:** Google Colab (Tesla T4 GPU)
+- **Utilities:** PIL (Pillow), tqdm
+
+---
+
+## 💻 Usage
+
+### 1️⃣ Environment Setup
+Install required dependencies:
+
+```bash
+pip install flask pyngrok pillow torch torchvision
+2️⃣ Training
+Open q1_A-02_Gen-AI.ipynb in Google Colab
+
+Mount Google Drive for persistent checkpoint storage
+
+Configure training parameters such as MAX_IMAGES and EPOCHS
+
+Run all cells to train the model
+
+Final weights are saved as final_model.pth
+
+3️⃣ Web Interface (Inference)
+Provide your NGROK_AUTH_TOKEN in the deployment cell
+
+Run the Flask application
+
+Access the generated Ngrok public URL
+
+Upload a photo or sketch
+
+The system automatically detects the input domain and generates the result
+
+📊 Performance Metrics
+Training Speed: ~10.84 iterations per second
+
+Average Generator Loss: ~3.54 by Epoch 10
+
+Image Resolution: 128 × 128 × 3
+
+📜 License
+This project is intended for academic, research, and educational use.
