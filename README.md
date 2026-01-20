@@ -100,7 +100,6 @@ CycleGAN-Face-Sketch-Synthesis/
 ### 1️⃣ Environment Setup
 
 Install required dependencies:
-```bash
 pip install flask pyngrok pillow torch torchvision
 
 ### 2️⃣ Training
